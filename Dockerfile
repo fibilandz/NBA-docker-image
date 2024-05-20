@@ -4,6 +4,9 @@ USER root
 RUN yum -y update && \
     yum -y upgrade && \
     yum -y autoremove
+RUN yum -y install glibc-locale-source glibc-langpack-en
+
+RUN localedef -c -i en_US -f UTF-8 en_US.UTF-8
 
 RUN yum -y install python3 python3-devel
 RUN yum -y install python3-pip
@@ -36,6 +39,7 @@ RUN pip install sphinx_rtd_theme
 RUN pip install sphinx_design
 RUN pip install urllib3==1.26.6
 RUN pip install envyaml
+RUN pip install cppyy
 
 RUN git clone --depth 1 --branch v1.12.2 https://github.com/cern-fts/gfal2-python.git
 WORKDIR /gfal2-python/
